@@ -21,10 +21,6 @@ public class GameService {
         this.wordService = wordService;
     }
 
-    public String[] getWords(){
-
-    }
-
     public List<String> startGame(String username) throws IOException {
         Optional<User> optionalUser = userService.getUserByName(username);
 
