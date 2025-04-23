@@ -41,6 +41,16 @@ public class GameService {
                     charCorrect++;
                 }
             }
+
+            if(submittedWords[i].length() < currentWord.length()){
+                charTotal += currentWord.length() - submittedWords[i].length();
+            }
+        }
+
+        if(submittedWords.length < wordList.size()){
+            for(int i = submittedWords.length; i < wordList.size(); i++){
+                charTotal += wordList.get(i).length();
+            }
         }
 
         return ((double) charCorrect) / charTotal;
@@ -92,7 +102,7 @@ public class GameService {
         score.setWPM(WPM);
         score.setAccuracy(accuracy);
 
-        if(WPM >= 200){
+        if(WPM >= 200 && accuracy > 0.99){
             user.setCanPlantFlag(true);
         }
 
