@@ -22,4 +22,6 @@ public class Score {
     private Double accuracy;
 
     private LocalDateTime timestamp;
+
+    private Double timeTaken;
 }

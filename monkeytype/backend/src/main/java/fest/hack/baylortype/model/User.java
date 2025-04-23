@@ -27,6 +27,9 @@ public class User {
 
     private Long startTime;
 
+    @ElementCollection
+    private List<String> words;
+
     @Column(nullable = false, columnDefinition = "boolean default 0")
     private Boolean inGame;
 }

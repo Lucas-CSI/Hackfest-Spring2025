@@ -22,13 +22,8 @@ public class WordService {
         List<String> wordsList = new ArrayList<>();
 
         for(int i = 0; i < amount; ++i){
-            wordsList.add(words[random.nextInt(words.length-3)]);
+            wordsList.add(words[random.nextInt(words.length)]);
         }
-
-        wordsList.add(words[words.length-3]);
-        wordsList.add(words[words.length-2]);
-        wordsList.add(words[words.length-1]);
-
         return wordsList;
     }
 }
