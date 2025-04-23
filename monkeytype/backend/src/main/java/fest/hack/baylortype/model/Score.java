@@ -15,5 +15,7 @@ public class Score {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Double WPM;
 
+    private Double accuracy;
 }

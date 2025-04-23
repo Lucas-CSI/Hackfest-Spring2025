@@ -16,4 +16,9 @@ public class User {
 
     @OneToMany
     private List<Score> scores;
+
+    private String name;
+
+    @Column(columnDefinition = "integer default 0")
+    private Integer attempts;
 }
