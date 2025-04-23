@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -17,8 +18,12 @@ public class User {
     @OneToMany
     private List<Score> scores;
 
-    private String name;
+    private String username;
 
     @Column(columnDefinition = "integer default 0")
     private Integer attempts;
+
+    private Long startTime;
+
+    private Boolean inGame;
 }
