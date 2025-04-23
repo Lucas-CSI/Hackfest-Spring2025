@@ -29,7 +29,7 @@ public class GameService {
         Optional<User> optionalUser = userService.getUserByName(username);
 
         if(optionalUser.isEmpty()){
-            return null
+            return null;
         }
 
         User user = optionalUser.get();
