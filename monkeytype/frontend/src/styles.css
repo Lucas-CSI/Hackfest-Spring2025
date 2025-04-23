@@ -24,16 +24,36 @@ body {
   }
   
   .words-container {
-    max-width: 800px;
-    line-height: 2rem;
+    max-width: 2000px;
+    line-height: 5rem;
     font-size: 1.25rem;
     display: flex;
     flex-wrap: wrap;
     cursor: text;
   }
+
+    
+  .title {
+    max-width: 800px;
+    line-height: 20rem;
+    font-size: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    cursor: text;
+    color: green;
+  }
+
+  .logo {
+    width: 75px;
+    height: 45px;
+  }
   
   .word {
-    margin-right: 0.5rem;
+    margin-right: 2rem;
+    font-size: 50px;
+    letter-spacing: 0.05rem;
+    font-family: 'Roboto Mono';
+    font-weight: 1;
   }
   
   .active {
@@ -42,6 +62,10 @@ body {
   
   .correct {
     color: #3fb950;
+  }
+  
+  .incorrect {
+    color: #f85149;
   }
   
   .typing-input {
