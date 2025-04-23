@@ -23,4 +23,29 @@ public class UserService {
     public User save(User user) {
         return userRepository.save(user);
     }
+
+    public String createUser(String username, String password) {
+        if (userRepository.findByUsername(username).isPresent()) {
+            return "Error: Username is already in use";
+        }
+        User user = new User();
+
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setAttempts(0);
+        user.setInGame(false);
+
+        userRepository.save(user);
+
+        return "User created";
+    }
+
+    public String login(String username, String password) {
+        User user = userRepository.findByUsername(username).orElse(null);
+        if (user == null || !user.getPassword().equals(password)) {
+            return "Error: Username or password is wrong";
+        }
+
+        return "Successfully logged in";
+    }
 }

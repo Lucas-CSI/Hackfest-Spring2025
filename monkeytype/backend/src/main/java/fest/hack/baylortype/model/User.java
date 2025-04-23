@@ -20,10 +20,13 @@ public class User {
 
     private String username;
 
-    @Column(columnDefinition = "integer default 0")
+    private String password;
+
+    @Column(nullable = false, columnDefinition = "integer default 0")
     private Integer attempts;
 
     private Long startTime;
 
+    @Column(nullable = false, columnDefinition = "boolean default 0")
     private Boolean inGame;
 }
