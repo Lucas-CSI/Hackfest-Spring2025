@@ -77,6 +77,10 @@ public class GameService {
         }
 
         User user = optionalUser.get();
+
+        if(!user.getInGame())
+            return null;
+
         Score score = new Score();
         Long startTime = user.getStartTime();
         Double timeTaken = (Instant.now().toEpochMilli() - user.getStartTime()) / 1000.0;
@@ -95,6 +99,7 @@ public class GameService {
         score = scoreRepository.save(score);
 
         user.getScores().add(score);
+        user.setInGame(false);
 
         userService.save(user);
 
