@@ -28,6 +28,8 @@ public class User {
     private Long startTime;
 
     @ElementCollection
+    @CollectionTable(name = "user_words", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "word")
     private List<String> words;
 
     @Column(nullable = false, columnDefinition = "boolean default 0")
