@@ -23,14 +23,17 @@ export default function CreateAccount({ onSwitch }) {
     setForm(f => ({ ...f, [name]: value }));
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     const errs = validate();
     setErrors(errs);
     if (Object.keys(errs).length === 0) {
-      // TODO: call your API here
+      const response = await fetch(`${API_URL}/api/user/register` + "?username=" + form.username + "&password=" + form.password, {
+        method: 'POST',
+        credentials: 'include'
+      });
       console.log('Creating account with', form);
-      // reset form or redirect…
+      location.reload();
     }
   };
 

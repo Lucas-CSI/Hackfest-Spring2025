@@ -2,6 +2,9 @@
 import React, { useState } from 'react';
 import './styles.css';
 
+
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function Login({ onSwitch }) {
   const [form, setForm] = useState({ username: '', password: '' });
   const [errors, setErrors] = useState({});
@@ -18,15 +21,16 @@ export default function Login({ onSwitch }) {
     setForm(f => ({ ...f, [name]: value }));
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     const errs = validate();
     setErrors(errs);
     if (Object.keys(errs).length === 0) {
-      // TODO: replace this with your real login API call
-      // if login succeeds:
-      document.cookie = `user=${encodeURIComponent(form.username)}; path=/`;
-      window.location.reload();
+      const response = await fetch(`${API_URL}/api/user/login` + "?username=" + form.username + "&password=" + form.password, {
+        method: 'POST',
+        credentials: 'include'
+      });
+      location.reload();
     }
   };
 
