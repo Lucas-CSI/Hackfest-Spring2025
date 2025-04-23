@@ -1,13 +1,13 @@
-package fest.hack.baylortype.baylortype;
+package fest.hack.baylortype;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BaylortypeApplication {
+public class BaylorTypeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BaylortypeApplication.class, args);
+		SpringApplication.run(BaylorTypeApplication.class, args);
 	}
 
 }

@@ -1,10 +1,10 @@
-package fest.hack.baylortype.baylortype;
+package fest.hack.baylortype;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BaylortypeApplicationTests {
+class BaylorTypeApplicationTests {
 
 	@Test
 	void contextLoads() {
