@@ -34,6 +34,7 @@ public class UserService {
         user.setPassword(password);
         user.setAttempts(0);
         user.setInGame(false);
+        user.setCanPlantFlag(false);
 
         userRepository.save(user);
 

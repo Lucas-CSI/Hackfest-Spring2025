@@ -3,6 +3,7 @@ package fest.hack.baylortype.controller;
 import fest.hack.baylortype.model.Score;
 import fest.hack.baylortype.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,17 @@ public class GameController {
 
     @PostMapping("/submit")
     public Score submit(@CookieValue("user") String username, @RequestParam("words") String[] words) {
-        return gameService.submit(user, words);
+        return gameService.submit(username, words);
+    }
+
+    @PostMapping("/plant")
+    public ResponseEntity<String> plantFlag(@CookieValue("user") String user, @RequestParam("flag") String flag){
+        String response = gameService.plantFlag(user, flag);
+
+        if(response.contains("Error")){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+        }
+
+        return ResponseEntity.ok(response);
     }
 }

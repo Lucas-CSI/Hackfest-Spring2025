@@ -32,4 +32,7 @@ public class User {
 
     @Column(nullable = false, columnDefinition = "boolean default 0")
     private Boolean inGame;
+
+    @Column(nullable = false, columnDefinition = "boolean default 0")
+    private Boolean canPlantFlag;
 }

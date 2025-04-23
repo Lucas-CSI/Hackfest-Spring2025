@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -87,6 +88,10 @@ public class GameService {
         score.setWPM(WPM);
         score.setAccuracy(accuracy);
 
+        if(WPM >= 200){
+            user.setCanPlantFlag(true);
+        }
+
         score = scoreRepository.save(score);
 
         user.getScores().add(score);
@@ -94,5 +99,32 @@ public class GameService {
         userService.save(user);
 
         return score;
+    }
+
+    public String plantFlag(String username, String flag) {
+        Optional<User> optionalUser = userService.getUserByName(username);
+
+        if(optionalUser.isEmpty()){
+            return "Error: User not found";
+        }
+
+        User user = optionalUser.get();
+
+        if(user.getCanPlantFlag()){
+            user.setCanPlantFlag(false);
+            try (FileWriter fileWriter = new FileWriter("flag.txt", false)) {
+                fileWriter.write(flag);
+                System.out.println("overwritten");
+            } catch (IOException e) {
+                System.err.println("An error occurred while writing to the file: " + e.getMessage());
+                user.setCanPlantFlag(true);
+            }
+        }else{
+            return "Error: User not can plant flag";
+        }
+
+        userService.save(user);
+
+        return "Flag set to: " + flag;
     }
 }
