@@ -29,8 +29,13 @@ public class GameController {
     }
 
     @PostMapping("/submit")
-    public Score submit(@CookieValue("user") String username, @RequestParam("words") String[] words) {
-        return gameService.submit(username, words);
+    public ResponseEntity<Score> submit(@CookieValue("user") String username, @RequestParam("words") String[] words) {
+        Score score = gameService.submit(username, words);
+        if(score == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(score);
     }
 
     @PostMapping("/plant")
