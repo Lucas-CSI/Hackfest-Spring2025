@@ -84,7 +84,7 @@ body {
   .typing-input::placeholder {
     color: #6e7681;
   }
-  
+
 .form-container {
   background-color: #161b22;
   padding: 2rem;
@@ -138,4 +138,21 @@ body {
   color: #f85149;
   font-size: 0.85rem;
   margin-top: 0.5rem;
+}
+
+.form-toggle {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+.form-toggle span {
+  color: #58a6ff;
+  cursor: pointer;
+}
+
+.disableCaret{
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+   user-select: none;       
 }

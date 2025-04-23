@@ -1,20 +1,15 @@
+// src/Login.jsx
 import React, { useState } from 'react';
+import './styles.css';
 
-export default function CreateAccount({ onSwitch }) {
-  const [form, setForm] = useState({
-    username: '',
-    password: '',
-    confirm: ''
-  });
+export default function Login({ onSwitch }) {
+  const [form, setForm] = useState({ username: '', password: '' });
   const [errors, setErrors] = useState({});
 
   const validate = () => {
     const errs = {};
     if (!form.username.trim()) errs.username = 'Username is required';
-    if (form.password.length < 6)
-      errs.password = 'Password must be at least 6 characters';
-    if (form.confirm !== form.password)
-      errs.confirm = 'Passwords do not match';
+    if (!form.password) errs.password = 'Password is required';
     return errs;
   };
 
@@ -28,16 +23,17 @@ export default function CreateAccount({ onSwitch }) {
     const errs = validate();
     setErrors(errs);
     if (Object.keys(errs).length === 0) {
-      // TODO: call your API here
-      console.log('Creating account with', form);
-      // reset form or redirect…
+      // TODO: replace this with your real login API call
+      // if login succeeds:
+      document.cookie = `user=${encodeURIComponent(form.username)}; path=/`;
+      window.location.reload();
     }
   };
 
   return (
     <div className="app">
       <form className="form-container" onSubmit={handleSubmit}>
-        <h1>Create Account</h1>
+        <h1>Log In</h1>
 
         <div className="form-field">
           <label htmlFor="username">Username</label>
@@ -67,27 +63,14 @@ export default function CreateAccount({ onSwitch }) {
           {errors.password && <div className="form-error">{errors.password}</div>}
         </div>
 
-        <div className="form-field">
-          <label htmlFor="confirm">Confirm Password</label>
-          <input
-            className="form-input"
-            id="confirm"
-            name="confirm"
-            type="password"
-            value={form.confirm}
-            onChange={handleChange}
-            placeholder="••••••••"
-          />
-          {errors.confirm && <div className="form-error">{errors.confirm}</div>}
-        </div>
-
         <button className="form-button" type="submit">
-          Sign Up
+          Log In
         </button>
+
         <div className="form-toggle">
-            Already have an account?{' '}
-            <span onClick={onSwitch}>Log in</span>
-       </div>
+          Don’t have an account?{' '}
+          <span onClick={onSwitch}>Sign up</span>
+        </div>
       </form>
     </div>
   );
