@@ -115,31 +115,4 @@ public class GameService {
 
         return score;
     }
-
-    public String plantFlag(String username, String flag) {
-        Optional<User> optionalUser = userService.getUserByName(username);
-
-        if(optionalUser.isEmpty()){
-            return "Error: User not found";
-        }
-
-        User user = optionalUser.get();
-
-        if(user.getCanPlantFlag()){
-            user.setCanPlantFlag(false);
-            try (FileWriter fileWriter = new FileWriter("flag.txt", false)) {
-                fileWriter.write(flag);
-                System.out.println("overwritten");
-            } catch (IOException e) {
-                System.err.println("An error occurred while writing to the file: " + e.getMessage());
-                user.setCanPlantFlag(true);
-            }
-        }else{
-            return "Error: User not can plant flag";
-        }
-
-        userService.save(user);
-
-        return "Flag set to: " + flag;
-    }
 }

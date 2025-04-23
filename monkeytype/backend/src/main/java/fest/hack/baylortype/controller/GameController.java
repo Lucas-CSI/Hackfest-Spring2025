@@ -37,15 +37,4 @@ public class GameController {
 
         return ResponseEntity.status(HttpStatus.OK).body(score);
     }
-
-    @PostMapping("/plant")
-    public ResponseEntity<String> plantFlag(@CookieValue("user") String user, @RequestParam("flag") String flag){
-        String response = gameService.plantFlag(user, flag);
-
-        if(response.contains("Error")){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
-        }
-
-        return ResponseEntity.ok(response);
-    }
 }
