@@ -12,6 +12,7 @@ export default function App() {
   const [inputCache, setInputCache] = useState('');
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState({ wpm: 0, accuracy: 0 });
+  const [flag, setFlag] = useState('');
 
   const inputRef = useRef(null);
 
@@ -27,6 +28,12 @@ export default function App() {
       });
       const wordList = await res.json();
       const arr = Array.from({ length: TOTAL_WORDS }, () => wordList[Math.floor(Math.random() * wordList.length)]);
+
+      const res2 = await fetch(`${API_URL}/api/flag/get`, {
+        method: 'GET',
+        credentials: 'include',
+      });
+      setFlag(await res2.text());
       setWords(arr);
     } catch (err) {
       console.error('Error fetching words:', err);
@@ -91,7 +98,8 @@ export default function App() {
     <div className="app">
       <img src="/image.png" alt="Baylor Bear 1" className="logo" />
       <div className="title">BaylorType</div>
-      <p>Can you type at 200+ WPM with 99.99%+ accuracy???</p>
+      <h2>Can you type at 200+ WPM with 99.99%+ accuracy???</h2>
+      <h2>Current Flag: {flag}</h2>
       <div className="timer">{`Progress: ${currentIndex}/${TOTAL_WORDS}`}</div>
 
       <div className="words-container" onClick={() => inputRef.current?.focus()}>
