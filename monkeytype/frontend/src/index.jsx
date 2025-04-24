@@ -2,6 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import AuthGate from './AuthGate.jsx';
 import './styles.css';
+import { BrowserRouter } from 'react-router-dom';
 
 function getCookie(name) {
   const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
@@ -10,4 +11,9 @@ function getCookie(name) {
 
 const container = document.getElementById('root');
 const root = createRoot(container);
-root.render(<AuthGate />);
+const user = getCookie('user');
+const setFlag = getCookie('setFlag');
+
+root.render(  <BrowserRouter>
+  <AuthGate />
+</BrowserRouter>);

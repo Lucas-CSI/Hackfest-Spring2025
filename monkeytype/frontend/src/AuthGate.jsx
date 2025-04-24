@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import App from './App.jsx';
 import Login from './Login.jsx';
 import CreateAccount from './CreateAccount.jsx';
+import FlagSubmissionPage from './FlagSubmission.jsx';
 
 function getCookie(name) {
   const m = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
@@ -11,7 +12,12 @@ function getCookie(name) {
 
 export default function AuthGate() {
   const user = getCookie('user');
-  const [mode, setMode] = useState('login'); // or 'signup'
+  const setFlag = getCookie('setFlag');
+  const [mode, setMode] = useState('login'); 
+
+  if(setFlag){
+    return <FlagSubmissionPage />
+  }
 
   if (user) {
     return <App />;

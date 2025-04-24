@@ -1,9 +1,9 @@
 // src/Login.jsx
 import React, { useState } from 'react';
 import './styles.css';
+import axios from 'axios';
 
-
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = "http://localhost:8080";
 
 export default function Login({ onSwitch }) {
   const [form, setForm] = useState({ username: '', password: '' });
@@ -26,10 +26,17 @@ export default function Login({ onSwitch }) {
     const errs = validate();
     setErrors(errs);
     if (Object.keys(errs).length === 0) {
-      const response = await fetch(`${API_URL}/api/user/login` + "?username=" + form.username + "&password=" + form.password, {
-        method: 'POST',
-        credentials: 'include'
-      });
+      const response = await axios.post(
+        `${API_URL}/api/user/login?username=${form.username}&password=${form.password}`,
+        {}, 
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'text/html', // Not typical for login, might want to change
+          },
+        }
+      );
+      console.log(response.body); 
       location.reload();
     }
   };

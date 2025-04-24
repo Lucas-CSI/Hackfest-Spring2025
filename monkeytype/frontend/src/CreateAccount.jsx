@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+const API_URL = "http://localhost:8080";
+
 export default function CreateAccount({ onSwitch }) {
   const [form, setForm] = useState({
     username: '',
@@ -28,7 +30,7 @@ export default function CreateAccount({ onSwitch }) {
     const errs = validate();
     setErrors(errs);
     if (Object.keys(errs).length === 0) {
-      const response = await fetch(`${API_URL}/api/user/register` + "?username=" + form.username + "&password=" + form.password, {
+      const response = await fetch(`${API_URL}/api/user/create` + "?username=" + form.username + "&password=" + form.password, {
         method: 'POST',
         credentials: 'include'
       });

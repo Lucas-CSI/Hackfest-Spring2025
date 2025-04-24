@@ -35,7 +35,7 @@ body {
     
   .title {
     max-width: 800px;
-    line-height: 20rem;
+    line-height: 10rem;
     font-size: 2rem;
     display: flex;
     flex-wrap: wrap;

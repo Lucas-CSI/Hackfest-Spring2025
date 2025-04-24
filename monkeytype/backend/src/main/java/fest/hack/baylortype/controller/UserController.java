@@ -41,8 +41,11 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
-        String cookieValue = "user=" + username + "; Max-Age=86400; Path=/; SameSite=Lax";
-        servletResponse.addHeader("Set-Cookie", cookieValue);
+        Cookie cookie = new Cookie("user", username);
+        cookie.setMaxAge(60 * 24 * 24 * 60);
+        cookie.setPath("/");
+
+        servletResponse.addCookie(cookie);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
