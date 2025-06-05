@@ -26,4 +26,15 @@ public class WordService {
         }
         return wordsList;
     }
+
+    public List<String> toOrderedStringList(List<Word> wordEntities) {
+        if (wordEntities == null || wordEntities.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return wordEntities.stream()
+                .sorted(Comparator.comparingInt(WordEntity::getWordIndex))
+                .map(Word::getWord)
+                .collect(Collectors.toList());
+    }
 }
