@@ -14,7 +14,7 @@ public class WordService {
     private final Random random = new Random();
 
     public String[] getAllWords() throws IOException {
-        return (Files.readString(Paths.get("words"))).split("\r\n");
+        return (Files.readString(Paths.get("words"))).split("\n");
     }
 
     public List<String> generateWords(int amount) throws IOException {
