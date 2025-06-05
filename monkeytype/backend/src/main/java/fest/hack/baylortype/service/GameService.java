@@ -107,7 +107,7 @@ public class GameService {
 
         List<String> convertedWords = wordService.toOrderedStringList(words);
         
-        return convertedWords();
+        return convertedWords;
     }
 
     @Transactional

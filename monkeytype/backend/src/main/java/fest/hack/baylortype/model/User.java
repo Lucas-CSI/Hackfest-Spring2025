@@ -28,8 +28,8 @@ public class User {
     private Long startTime;
 
     @Column(name = "words")
-    @OneToMany
-    private List<String> words;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Word> words;
 
     @Column(nullable = false, columnDefinition = "boolean default 0")
     private Boolean inGame;

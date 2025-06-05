@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import fest.hack.baylortype.model.Word;
+import java.util.stream.Collectors;
+import java.util.Collections;
+import java.util.Comparator;
 
 @Service
 public class WordService {
@@ -23,7 +26,7 @@ public class WordService {
         List<Word> wordsList = new ArrayList<>();
 
         for(int i = 0; i < amount; ++i){
-            wordsList.add(new Word(words[random.nextInt(words.length)]));
+            wordsList.add(new Word(words[random.nextInt(words.length)], i));
         }
         return wordsList;
     }
@@ -34,7 +37,7 @@ public class WordService {
         }
 
         return wordEntities.stream()
-                .sorted(Comparator.comparingInt(WordEntity::getWordIndex))
+                .sorted(Comparator.comparingInt(Word::getWordIndex))
                 .map(Word::getWord)
                 .collect(Collectors.toList());
     }

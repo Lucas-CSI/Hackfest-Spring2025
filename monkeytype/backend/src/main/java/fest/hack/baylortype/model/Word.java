@@ -19,12 +19,12 @@ public class Word {
     private String word;
 
     @Column(name = "index", nullable = false)
-    private int wordIndex;
+    private Integer wordIndex;
 
-    public WordEntity() {
+    public Word() {
     }
 
-    public WordEntity(String word, int wordIndex) {
+    public Word(String word, Integer wordIndex) {
         this.word = word;
         this.wordIndex = wordIndex;
     }
