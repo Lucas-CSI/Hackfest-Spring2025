@@ -2,6 +2,7 @@ package fest.hack.baylortype.service;
 
 import fest.hack.baylortype.model.Score;
 import fest.hack.baylortype.model.User;
+import fest.hack.baylortype.model.Word;
 import fest.hack.baylortype.repository.ScoreRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,13 +99,15 @@ public class GameService {
         user.setStartTime(Instant.now().toEpochMilli());
         user.setAttempts(user.getAttempts() + 1);
 
-        List<String> words = wordService.generateWords(30);
+        List<Word> words = wordService.generateWords(30);
 
         user.setWords(words);
 
-        User savedUser = userService.save(user);
+        userService.save(user);
 
-        return savedUser.getWords();
+        List<String> convertedWords = wordService.toOrderedStringList(words);
+        
+        return convertedWords();
     }
 
     @Transactional
@@ -124,7 +127,7 @@ public class GameService {
         Long startTime = user.getStartTime();
         Double timeTaken = (Instant.now().toEpochMilli() - user.getStartTime()) / 1000.0;
         Double WPM = user.getWords().size() / timeTaken * 60;
-        Double accuracy = calculateAccuracy(words, user.getWords());
+        Double accuracy = calculateAccuracy(words, wordService.toOrderedStringList(user.getWords()));
 
         score.setTimestamp(Instant.now().atZone(ZoneId.systemDefault()).toLocalDateTime());
         score.setTimeTaken(timeTaken);
