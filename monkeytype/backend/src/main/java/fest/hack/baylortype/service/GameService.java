@@ -29,28 +29,57 @@ public class GameService {
         this.scoreRepository = scoreRepository;
     }
 
-    private Double calculateAccuracy(String[] submittedWords, List<String> wordList){
+    private Double calculateAccuracy(String[] submittedWords, List<String> wordList) {
+        if (wordList == null || wordList.isEmpty()) {
+            if (submittedWords == null || submittedWords.length == 0) {
+                return 1.0; 
+            }
+            return 0.0; 
+        }
+
         int charCorrect = 0;
         int charTotal = 0;
-        String currentWord;
-        for(int i = 0; i < submittedWords.length; i++){
-            currentWord = wordList.get(i);
-            for(int j = 0; j < submittedWords[i].length(); j++){
-                charTotal++;
-                if(j < currentWord.length() && submittedWords[i].charAt(j) == currentWord.charAt(j)){
+
+        int commonLength = Math.min(submittedWords.length, wordList.size());
+
+        for (int i = 0; i < commonLength; i++) {
+            String submittedWord = submittedWords[i];
+            String correctWord = wordList.get(i);
+
+            if (submittedWord == null) submittedWord = ""; 
+            if (correctWord == null) correctWord = "";   
+
+
+            for (int j = 0; j < submittedWord.length(); j++) {
+                charTotal++; 
+                if (j < correctWord.length() && submittedWord.charAt(j) == correctWord.charAt(j)) {
                     charCorrect++;
                 }
             }
-
-            if(submittedWords[i].length() < currentWord.length()){
-                charTotal += currentWord.length() - submittedWords[i].length();
+            if (submittedWord.length() < correctWord.length()) {
+                charTotal += (correctWord.length() - submittedWord.length());
             }
         }
 
-        if(submittedWords.length < wordList.size()){
-            for(int i = submittedWords.length; i < wordList.size(); i++){
-                charTotal += wordList.get(i).length();
+        if (submittedWords.length < wordList.size()) {
+            for (int i = submittedWords.length; i < wordList.size(); i++) {
+                String correctWord = wordList.get(i);
+                if (correctWord != null) {
+                    charTotal += correctWord.length();
+                }
             }
+        }else if (submittedWords.length > wordList.size()) {
+            for (int i = wordList.size(); i < submittedWords.length; i++) {
+                String extraSubmittedWord = submittedWords[i];
+                if (extraSubmittedWord != null) {
+                    charTotal += extraSubmittedWord.length();
+                }
+            }
+        }
+
+
+        if (charTotal == 0) {
+            return (charCorrect == 0) ? 1.0 : 0.0; 
         }
 
         return ((double) charCorrect) / charTotal;
