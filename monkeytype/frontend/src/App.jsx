@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ScorePage from './ScorePage';
 
-const TOTAL_WORDS = 40;
+const TOTAL_WORDS = 30;
 const API_URL = "http://localhost:8080";
 
 export default function App() {
