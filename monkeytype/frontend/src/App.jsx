@@ -27,6 +27,8 @@ export default function App() {
         credentials: 'include',
       });
       const wordList = await res.json();
+      if(wordList[0] === "setflag")
+	    location.reload();
       const res2 = await fetch(`${API_URL}/api/flag/get`, {
         method: 'GET',
         credentials: 'include',
@@ -60,13 +62,17 @@ export default function App() {
     if (currentIndex === TOTAL_WORDS) handleSubmit();
   }, [inputCache])
 
-  const handleChange = (e) => {
+  const handleChange = async(e) => {
+    const val = e.target.value;
     if (!started) {
+      const res = await fetch(`${API_URL}/api/game/typing`, {
+        method: 'POST',
+        credentials: 'include',
+      });
       setStarted(true);
       inputRef.current?.focus();
     }
 
-    const val = e.target.value;
 
     if (val.endsWith(' ')) {
       const trimmed = input.trim();

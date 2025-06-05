@@ -24,11 +24,25 @@ public class GameController {
     }
 
     @PostMapping("/start")
-    public ResponseEntity<List<String>> startGame(@CookieValue("user") String user) throws IOException {
+    public ResponseEntity<List<String>> startGame(@CookieValue("user") String user, HttpServletResponse httpServletResponse) throws IOException {
         List<String> list = gameService.startGame(user);
+	if(list.get(0).equals("setflag")){
+            Cookie cookie = new Cookie("setFlag", "true");
+            cookie.setMaxAge(60 * 24 * 24 * 60);
+            cookie.setPath("/");
+            httpServletResponse.addCookie(cookie);
+        }
 
         return list.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(list);
     }
+    
+    // Too lazy to properly implement this
+    @PostMapping("/typing")
+    public ResponseEntity<String> startTyping(@CookieValue("user") String user){
+	gameService.startTyping(user);
+	return ResponseEntity.ok("Started.");
+    }
+
 
     @PostMapping("/submit")
     public ResponseEntity<Score> submit(@CookieValue("user") String username, @RequestParam("words") String[] words, HttpServletResponse servletResponse) {

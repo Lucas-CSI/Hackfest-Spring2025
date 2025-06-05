@@ -15,13 +15,14 @@ const FlagSubmissionPage = () => {
       return;
     }
 
-    const response = await fetch(`${API_URL}/api/flag/plant` + "?flag=" + form.flag, {
+    const response = await fetch(`${API_URL}/api/flag/plant` + "?flag=" + flag, {
         method: 'POST',
         credentials: 'include'
       });
     setSubmitted(true);
     setError('');
     document.cookie = "setFlag=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    setTimeout(() => location.reload(), 1000);
   };
 
   return (

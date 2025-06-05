@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Collections;
 import java.util.List;
+import java.util.Arrays;
 import java.util.Optional;
 
 @Service
@@ -94,9 +95,13 @@ public class GameService {
         }
 
         User user = optionalUser.get();
+        
+	if(user.getCanPlantFlag()){
+	  return Arrays.asList("setflag");
+	}
+	user.setInGame(true);
 
-        user.setInGame(true);
-        user.setStartTime(Instant.now().toEpochMilli());
+	user.setStartTime(Instant.now().toEpochMilli());
         user.setAttempts(user.getAttempts() + 1);
 
         List<Word> words = wordService.generateWords(30, user);
@@ -146,5 +151,17 @@ public class GameService {
         userService.save(user);
 
         return score;
+    }
+
+    public void startTyping(String username){
+	        Optional<User> optionalUser = userService.getUserByName(username);
+
+        if(optionalUser.isEmpty()){
+            return;
+        }
+
+        User user = optionalUser.get();
+	user.setStartTime(Instant.now().toEpochMilli());
+    	userService.save(user);
     }
 }
