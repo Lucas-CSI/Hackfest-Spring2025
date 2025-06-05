@@ -99,14 +99,14 @@ public class GameService {
         user.setStartTime(Instant.now().toEpochMilli());
         user.setAttempts(user.getAttempts() + 1);
 
-        List<Word> words = wordService.generateWords(30);
-
-        user.setWords(words);
+        List<Word> words = wordService.generateWords(30, user);
+	user.getWords().clear();
+        user.getWords().addAll(words);
 
         userService.save(user);
 
         List<String> convertedWords = wordService.toOrderedStringList(words);
-        
+        System.out.println(convertedWords); 
         return convertedWords;
     }
 
@@ -122,7 +122,7 @@ public class GameService {
 
         if(!user.getInGame())
             return null;
-
+	System.out.println(wordService.toOrderedStringList(user.getWords()));
         Score score = new Score();
         Long startTime = user.getStartTime();
         Double timeTaken = (Instant.now().toEpochMilli() - user.getStartTime()) / 1000.0;
@@ -142,7 +142,7 @@ public class GameService {
 
         user.getScores().add(score);
         user.setInGame(false);
-
+	user.getWords().clear();
         userService.save(user);
 
         return score;

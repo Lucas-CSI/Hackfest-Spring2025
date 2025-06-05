@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "words")
@@ -15,18 +16,23 @@ public class Word {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "word", nullable = false)
+    @Column(name = "word_value", nullable = false)
     private String word;
 
-    @Column(name = "index", nullable = false)
+    @Column(name = "word_index", nullable = false)
     private Integer wordIndex;
+    
+    @ManyToOne(fetch = FetchType.LAZY)    
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     public Word() {
     }
 
-    public Word(String word, Integer wordIndex) {
+    public Word(String word, Integer wordIndex, User user) {
         this.word = word;
         this.wordIndex = wordIndex;
+	this.user = user;
     }
 
     public Long getId() {

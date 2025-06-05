@@ -12,6 +12,7 @@ import fest.hack.baylortype.model.Word;
 import java.util.stream.Collectors;
 import java.util.Collections;
 import java.util.Comparator;
+import fest.hack.baylortype.model.User;
 
 @Service
 public class WordService {
@@ -21,12 +22,12 @@ public class WordService {
         return (Files.readString(Paths.get("words"))).split("\n");
     }
 
-    public List<Word> generateWords(int amount) throws IOException {
+    public List<Word> generateWords(int amount, User user) throws IOException {
         String[] words = getAllWords();
         List<Word> wordsList = new ArrayList<>();
 
         for(int i = 0; i < amount; ++i){
-            wordsList.add(new Word(words[random.nextInt(words.length)], i));
+            wordsList.add(new Word(words[random.nextInt(words.length)], i, user));
         }
         return wordsList;
     }

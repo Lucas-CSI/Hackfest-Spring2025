@@ -28,7 +28,7 @@ public class User {
     private Long startTime;
 
     @Column(name = "words")
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Word> words;
 
     @Column(nullable = false, columnDefinition = "boolean default 0")

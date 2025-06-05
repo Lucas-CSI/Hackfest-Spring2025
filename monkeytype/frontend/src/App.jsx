@@ -27,14 +27,12 @@ export default function App() {
         credentials: 'include',
       });
       const wordList = await res.json();
-      const arr = Array.from({ length: TOTAL_WORDS }, () => wordList[Math.floor(Math.random() * wordList.length)]);
-
       const res2 = await fetch(`${API_URL}/api/flag/get`, {
         method: 'GET',
         credentials: 'include',
       });
       setFlag(await res2.text());
-      setWords(arr);
+      setWords(wordList);
     } catch (err) {
       console.error('Error fetching words:', err);
     }
@@ -58,6 +56,10 @@ export default function App() {
     }
   };
 
+  useEffect(() => {
+    if (currentIndex === TOTAL_WORDS) handleSubmit();
+  }, [inputCache])
+
   const handleChange = (e) => {
     if (!started) {
       setStarted(true);
@@ -69,12 +71,8 @@ export default function App() {
     if (val.endsWith(' ')) {
       const trimmed = input.trim();
       setInputCache(prev => prev ? `${prev} ${trimmed}` : trimmed);
+      setCurrentIndex(currentIndex + 1);
       setInput('');
-      setCurrentIndex(i => {
-        const nextIndex = i + 1;
-        if (nextIndex === TOTAL_WORDS) handleSubmit();
-        return nextIndex;
-      });
     } else {
       setInput(val);
     }
