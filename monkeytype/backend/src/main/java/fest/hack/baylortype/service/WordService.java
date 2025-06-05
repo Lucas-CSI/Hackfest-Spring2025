@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import fest.hack.baylortype.model.Word;
 
 @Service
 public class WordService {
@@ -17,12 +18,12 @@ public class WordService {
         return (Files.readString(Paths.get("words"))).split("\n");
     }
 
-    public List<String> generateWords(int amount) throws IOException {
+    public List<Word> generateWords(int amount) throws IOException {
         String[] words = getAllWords();
-        List<String> wordsList = new ArrayList<>();
+        List<Word> wordsList = new ArrayList<>();
 
         for(int i = 0; i < amount; ++i){
-            wordsList.add(words[random.nextInt(words.length)]);
+            wordsList.add(new Word(words[random.nextInt(words.length)]));
         }
         return wordsList;
     }
