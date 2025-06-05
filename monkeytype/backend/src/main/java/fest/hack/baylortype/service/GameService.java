@@ -98,7 +98,7 @@ public class GameService {
         user.setStartTime(Instant.now().toEpochMilli());
         user.setAttempts(user.getAttempts() + 1);
 
-        List<String> words = wordService.generateWords(40);
+        List<String> words = wordService.generateWords(30);
 
         user.setWords(words);
 
