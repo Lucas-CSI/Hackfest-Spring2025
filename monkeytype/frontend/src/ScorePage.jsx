@@ -2,6 +2,8 @@ import React from 'react';
 import './ScorePage.css'; // You can place the new styles in here or merge with your main CSS
 
 const ScorePage = ({ wpm, accuracy, onRestart }) => {
+  accuracy = Math.trunc(accuracy * 100) / 100;
+  wpm = Math.trunc(wpm * 100) / 100;
   return (
     <div className="score-container">
       <h1 className="score-title">Your Score</h1>
