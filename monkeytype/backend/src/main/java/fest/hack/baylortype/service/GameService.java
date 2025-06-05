@@ -102,9 +102,9 @@ public class GameService {
 
         user.setWords(words);
 
-        userService.save(user);
+        User savedUser = userService.save(user);
 
-        return words;
+        return savedUser.getWords();
     }
 
     @Transactional
