@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import ScorePage from './ScorePage';
 
 const TOTAL_WORDS = 30;
-const API_URL = "http://localhost:8080";
+const API_URL = process.env.REACT_APP_BASE_URL;
 
 export default function App() {
   const [words, setWords] = useState([]);
