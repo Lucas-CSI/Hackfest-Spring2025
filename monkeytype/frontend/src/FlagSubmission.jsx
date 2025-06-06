@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const API_URL = "http://localhost:8080";
+const API_URL = process.env.REACT_APP_BASE_URL;
 
 const FlagSubmissionPage = () => {
   const [flag, setFlag] = useState('');
