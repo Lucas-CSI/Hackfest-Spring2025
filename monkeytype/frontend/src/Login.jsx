@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './styles.css';
 import axios from 'axios';
 
-const API_URL = "http://localhost:8080";
+const API_URL = process.env.REACT_APP_BASE_URL;
 
 export default function Login({ onSwitch }) {
   const [form, setForm] = useState({ username: '', password: '' });
